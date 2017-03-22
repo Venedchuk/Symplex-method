@@ -1,0 +1,65 @@
+﻿<Window
+    x:Class="Symplex_method.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Symplex_method"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="525"
+    Height="350"
+    mc:Ignorable="d">
+    <Grid>
+        <Button
+            x:Name="button"
+            Width="105"
+            Height="30"
+            Margin="307,10,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Click="GenerateTable"
+            Content="Tdysh (generate)" />
+        <TextBox
+            x:Name="variablesCount"
+            Width="120"
+            Height="23"
+            Margin="14,13,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            TextChanged="ValidateInputOnlyPositive"
+            TextWrapping="Wrap" />
+        <TextBox
+            x:Name="limitsCount"
+            Width="120"
+            Height="23"
+            Margin="182,13,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            TextChanged="ValidateInputOnlyPositive"
+            TextWrapping="Wrap" />
+        <Label
+            x:Name="label"
+            Width="80"
+            Height="29"
+            Margin="14,36,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="К. змінних" />
+        <Label
+            x:Name="label1"
+            Width="105"
+            Margin="182,36,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="К. обмежень" />
+        <ListBox
+            x:Name="listBox"
+            Width="475"
+            Height="239"
+            Margin="14,70,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" />
+        <Button x:Name="solveButton" Content="Solve" HorizontalAlignment="Left" Height="32" Margin="417,9,0,0" VerticalAlignment="Top" Width="72" Click="Solve"/>
+
+    </Grid>
+</Window>
