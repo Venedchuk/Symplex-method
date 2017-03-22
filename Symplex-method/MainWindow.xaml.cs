@@ -121,6 +121,7 @@ namespace Symplex_method
                 return;
             }
 
+
             if (!solver.CheckNegativeLastColumn())
             {
                 MessageBox.Show("Negative in last column LUL PogChamp");
