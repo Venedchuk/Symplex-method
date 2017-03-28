@@ -102,7 +102,7 @@
             Content="К. обмежень" />
         <ListBox
             x:Name="listBox"
-            Width="429"
+            Width="381"
             Height="203"
             Margin="60,106,0,0"
             HorizontalAlignment="Left"
@@ -122,12 +122,21 @@
             Height="36"
             Margin="60,65,0,0"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top" Style="{DynamicResource ListBoxStyle1}" />
+            VerticalAlignment="Top"
+            Style="{DynamicResource ListBoxStyle1}" />
         <ListBox
             x:Name="listBoxBasis"
-            Width="55"
+            Width="41"
             Height="203"
-            Margin="0,106,0,0"
+            Margin="14,106,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Style="{DynamicResource ListBoxStyle1}" />
+        <ListBox
+            x:Name="listBoxKoef"
+            Width="61"
+            Height="203"
+            Margin="446,106,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Style="{DynamicResource ListBoxStyle1}" />

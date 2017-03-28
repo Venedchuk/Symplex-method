@@ -9,7 +9,7 @@ namespace Symplex_method
 {
     public class SymplexMethodSolver
     {
-        private int[,] coeffTable;
+        public int[,] coeffTable;
         public List<int> yBasisIndexes = new List<int>();
         private int x;
         private int y;
@@ -19,7 +19,7 @@ namespace Symplex_method
             x = symplexTable.Count;
             y = symplexTable[0].Count;
 
-            coeffTable = new int[x,y];
+            coeffTable = new int[x, y];
 
             foreach (var row in symplexTable)
             {
@@ -67,7 +67,7 @@ namespace Symplex_method
 
                 totalbasisfound = totalbasisfound && isrowcontainsbasis;
             }
-
+            
             return totalbasisfound;
         }
 
@@ -77,7 +77,7 @@ namespace Symplex_method
 
             for (int i = 0; i < x; i++)
             {
-                if (coeffTable[i, y-1] < 0)
+                if (coeffTable[i, y - 1] < 0)
                     return false;
             }
 
