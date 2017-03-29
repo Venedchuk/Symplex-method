@@ -29,6 +29,10 @@ namespace Symplex_method
 
         public List<List<TextBox>> SymplexTable = new List<List<TextBox>>();
         public List<TextBox> BasicValue = new List<TextBox>();
+        public int[,] CoeffTable;
+
+        private int x;
+        private int y;
 
         #region Validation
 
@@ -80,6 +84,8 @@ namespace Symplex_method
 
             List<TextBox> ListBoxValue = new List<TextBox>();
             List<TextBox> ListBoxBasis = new List<TextBox>();
+
+
             var varCount = 0; // columns
             int.TryParse(variablesCount.Text, out varCount);
 
@@ -88,9 +94,33 @@ namespace Symplex_method
 
             designTable(varCount, limCount);
 
+
             SymplexTable = new List<List<TextBox>>();
             listBox.Items.Clear();
 
+#if DEBUG
+            var templatesimpl = new int[,] { { -1, 1, 1, 0, 0, 2 }, { 3, 0, -2, 1, 0, 3 }, { 1, 0, 3, 0, 1, 12 }, { -2, -1, 0, 0, 0, 0 } };
+            for (int x = 0; x <= limCount; x++)
+            {
+
+
+                var rowModel = new List<TextBox>();
+                var grid = new Grid();
+                for (int y = 0; y <= varCount; y++)
+                {
+                    var box = new TextBox();
+                    box.Margin = new Thickness(35 * y, 0, -35 * y, 0);
+                    box.Width = 30;
+                    box.Text = templatesimpl[x, y].ToString();
+                    box.TextChanged += ValidateInputBoth;
+                    rowModel.Add(box);
+                    grid.Children.Add(box);
+                }
+                SymplexTable.Add(rowModel);
+                listBox.Items.Add(grid);
+            }
+            return;
+#endif
             for (int x = 0; x <= limCount; x++)
             {
 
@@ -103,11 +133,6 @@ namespace Symplex_method
                     box.Margin = new Thickness(35 * y, 0, -35 * y, 0);
                     box.Width = 30;
                     box.TextChanged += ValidateInputBoth;
-
-#if DEBUG
-                    //box.Text = rnd.Next(-2, 5).ToString();
-#endif
-
                     rowModel.Add(box);
                     grid.Children.Add(box);
                 }
@@ -175,11 +200,26 @@ namespace Symplex_method
             #endregion
 
         }
-
+        internal void ShowIteration(int[,] coeffTableNow)
+        {
+            Console.WriteLine();
+            for (int i = 0; i < SymplexTable.Count; i++)
+            {
+                for (int j = 0; j < SymplexTable[0].Count; j++)
+                {
+                    if (coeffTableNow[i, j] < 0)
+                        Console.Write(coeffTableNow[i, j] + " ");
+                    else
+                        Console.Write(" " + coeffTableNow[i, j] + " ");
+                }
+                Console.WriteLine(Environment.NewLine);
+            }
+        }
         private void Solve(object sender, RoutedEventArgs e)
         {
-            var solver = new SymplexMethodSolver(SymplexTable);
 
+            var solver = new SymplexMethodChecker(SymplexTable);
+            CoeffTable = solver.GetTable();
             var isBasisVariablesExist = solver.FindBasisVariables();
 
             if (!isBasisVariablesExist)
@@ -195,23 +235,34 @@ namespace Symplex_method
                 return;
             }
             listBoxBasis.Items.Clear();
-            foreach (var item in solver.yBasisIndexes)
-            {
-                listBoxBasis.Items.Add(item+1);
-            }
             listBoxKoef.Items.Clear();
             foreach (var item in solver.yBasisIndexes)
-            { var a = solver.coeffTable.Length;
-                try
-                {
-                    listBoxKoef.Items.Add(solver.coeffTable[SymplexTable.Count-1,item]);
-                }
-                catch (Exception)
-                {
-
-                }
-               
+            {
+                listBoxBasis.Items.Add(item + 1);
+                listBoxKoef.Items.Add(CoeffTable[SymplexTable.Count - 1, item]);
             }
+
+            for (int i = 0; i < SymplexTable[0].Count; i++)
+            {
+                float sum = 0;
+                var j = 0;
+                foreach (var item in listBoxKoef.Items)
+                {
+                    sum += CoeffTable[j, i] * (int)item;
+                    j++;
+                }
+                CoeffTable[j, i] = (int)sum - CoeffTable[j, i];
+            }
+            ShowIteration(CoeffTable);
+            x = SymplexTable.Count;
+            y = SymplexTable[0].Count;
+
+        }
+
+     
+
+        private void NextStep(object sender, RoutedEventArgs e)
+        {
 
         }
     }

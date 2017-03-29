@@ -7,14 +7,14 @@ using System.Windows.Controls;
 
 namespace Symplex_method
 {
-    public class SymplexMethodSolver
+    public class SymplexMethodChecker
     {
-        public int[,] coeffTable;
+        private int[,] coeffTable;
         public List<int> yBasisIndexes = new List<int>();
         private int x;
         private int y;
 
-        public SymplexMethodSolver(List<List<TextBox>> symplexTable)
+        public SymplexMethodChecker(List<List<TextBox>> symplexTable)
         {
             x = symplexTable.Count;
             y = symplexTable[0].Count;
@@ -67,7 +67,7 @@ namespace Symplex_method
 
                 totalbasisfound = totalbasisfound && isrowcontainsbasis;
             }
-            
+
             return totalbasisfound;
         }
 
@@ -82,6 +82,13 @@ namespace Symplex_method
             }
 
             return true;
+        }
+
+        
+
+        internal int[,] GetTable()
+        {
+            return coeffTable;
         }
     }
 }

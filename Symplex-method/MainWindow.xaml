@@ -58,15 +58,6 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Button
-            x:Name="button"
-            Width="105"
-            Height="30"
-            Margin="307,10,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Click="GenerateTable"
-            Content="Tdysh (generate)" />
         <TextBox
             x:Name="variablesCount"
             Width="120"
@@ -74,6 +65,7 @@
             Margin="14,13,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
+            Text="5"
             TextChanged="ValidateInputOnlyPositive"
             TextWrapping="Wrap" />
         <TextBox
@@ -83,8 +75,37 @@
             Margin="182,13,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
+            Text="3"
             TextChanged="ValidateInputOnlyPositive"
             TextWrapping="Wrap" />
+        <Button
+            x:Name="button"
+            Width="78"
+            Height="30"
+            Margin="307,10,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Click="GenerateTable"
+            Content="Generate" />
+        <Button
+            x:Name="solveButton"
+            Width="72"
+            Height="30"
+            Margin="390,10,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Click="Solve"
+            Content="Solve" />
+        <Button
+            x:Name="Step"
+            Width="72"
+            Height="32"
+            Margin="435,65,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Panel.ZIndex="1"
+            Click="NextStep"
+            Content="Step" />
         <Label
             x:Name="label"
             Width="80"
@@ -107,18 +128,10 @@
             Margin="60,106,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top" />
-        <Button
-            x:Name="solveButton"
-            Width="72"
-            Height="32"
-            Margin="417,9,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Click="Solve"
-            Content="Solve" />
+
         <ListBox
             x:Name="listBoxValue"
-            Width="429"
+            Width="370"
             Height="36"
             Margin="60,65,0,0"
             HorizontalAlignment="Left"
