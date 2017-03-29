@@ -60,7 +60,7 @@
     <Grid>
         <TextBox
             x:Name="variablesCount"
-            Width="120"
+            Width="41"
             Height="23"
             Margin="14,13,0,0"
             HorizontalAlignment="Left"
@@ -70,9 +70,9 @@
             TextWrapping="Wrap" />
         <TextBox
             x:Name="limitsCount"
-            Width="120"
+            Width="39"
             Height="23"
-            Margin="182,13,0,0"
+            Margin="94,13,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Text="3"
@@ -82,7 +82,7 @@
             x:Name="button"
             Width="78"
             Height="30"
-            Margin="307,10,0,0"
+            Margin="152,13,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Click="GenerateTable"
@@ -91,21 +91,21 @@
             x:Name="solveButton"
             Width="72"
             Height="30"
-            Margin="390,10,0,0"
+            Margin="247,13,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Click="Solve"
-            Content="Solve" />
+            Content="Check" />
         <Button
             x:Name="Step"
             Width="72"
             Height="32"
-            Margin="435,65,0,0"
+            Margin="333,13,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Panel.ZIndex="1"
-            Click="NextStep"
-            Content="Step" />
+            Click="NextStepPrepare"
+            Content="CreateSimplex" />
         <Label
             x:Name="label"
             Width="80"
@@ -116,8 +116,8 @@
             Content="К. змінних" />
         <Label
             x:Name="label1"
-            Width="105"
-            Margin="182,36,0,0"
+            Width="84"
+            Margin="94,36,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="К. обмежень" />
@@ -140,8 +140,8 @@
         <ListBox
             x:Name="listBoxBasis"
             Width="41"
-            Height="203"
-            Margin="14,106,0,0"
+            Height="190"
+            Margin="14,110,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Style="{DynamicResource ListBoxStyle1}" />
@@ -149,7 +149,7 @@
             x:Name="listBoxKoef"
             Width="61"
             Height="203"
-            Margin="446,106,0,0"
+            Margin="446,110,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Style="{DynamicResource ListBoxStyle1}" />

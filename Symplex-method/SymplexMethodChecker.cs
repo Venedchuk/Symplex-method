@@ -9,7 +9,7 @@ namespace Symplex_method
 {
     public class SymplexMethodChecker
     {
-        private int[,] coeffTable;
+        private float[,] coeffTable;
         public List<int> yBasisIndexes = new List<int>();
         private int x;
         private int y;
@@ -19,7 +19,7 @@ namespace Symplex_method
             x = symplexTable.Count;
             y = symplexTable[0].Count;
 
-            coeffTable = new int[x, y];
+            coeffTable = new float[x, y];
 
             foreach (var row in symplexTable)
             {
@@ -86,7 +86,7 @@ namespace Symplex_method
 
         
 
-        internal int[,] GetTable()
+        internal float[,] GetTable()
         {
             return coeffTable;
         }

@@ -29,7 +29,9 @@ namespace Symplex_method
 
         public List<List<TextBox>> SymplexTable = new List<List<TextBox>>();
         public List<TextBox> BasicValue = new List<TextBox>();
-        public int[,] CoeffTable;
+        public float[,] CoeffTable;
+        public int basisXColumn, basisYRow;
+        float basis;
 
         private int x;
         private int y;
@@ -102,8 +104,6 @@ namespace Symplex_method
             var templatesimpl = new int[,] { { -1, 1, 1, 0, 0, 2 }, { 3, 0, -2, 1, 0, 3 }, { 1, 0, 3, 0, 1, 12 }, { -2, -1, 0, 0, 0, 0 } };
             for (int x = 0; x <= limCount; x++)
             {
-
-
                 var rowModel = new List<TextBox>();
                 var grid = new Grid();
                 for (int y = 0; y <= varCount; y++)
@@ -200,7 +200,8 @@ namespace Symplex_method
             #endregion
 
         }
-        internal void ShowIteration(int[,] coeffTableNow)
+
+        internal void ShowIteration(float[,] coeffTableNow)
         {
             Console.WriteLine();
             for (int i = 0; i < SymplexTable.Count; i++)
@@ -241,6 +242,7 @@ namespace Symplex_method
                 listBoxBasis.Items.Add(item + 1);
                 listBoxKoef.Items.Add(CoeffTable[SymplexTable.Count - 1, item]);
             }
+            listBoxBasis.Items.Add("Q");
 
             for (int i = 0; i < SymplexTable[0].Count; i++)
             {
@@ -248,7 +250,7 @@ namespace Symplex_method
                 var j = 0;
                 foreach (var item in listBoxKoef.Items)
                 {
-                    sum += CoeffTable[j, i] * (int)item;
+                    sum += CoeffTable[j, i] * (float)item;
                     j++;
                 }
                 CoeffTable[j, i] = (int)sum - CoeffTable[j, i];
@@ -259,11 +261,85 @@ namespace Symplex_method
 
         }
 
-     
 
-        private void NextStep(object sender, RoutedEventArgs e)
+
+        private void NextStepPrepare(object sender, RoutedEventArgs e)
         {
+            Iteration();
+        }
+        public void Iteration()
+        {
+            float MaxColumnKoef = -999;
 
+            for (int i = 0; i < y - 1; i++)
+            {
+                if (MaxColumnKoef < CoeffTable[x - 1, i]&& CoeffTable[x - 1, i]>0)
+                {
+
+                    MaxColumnKoef = CoeffTable[x - 1, i];
+                    basisXColumn = i;
+
+                }
+
+            }
+
+            basisYRow = 999;
+            for (int i = 0; i < x; i++)
+            {
+                if (CoeffTable[i, basisXColumn] > 0 && CoeffTable[i, basisXColumn] < basisYRow)
+                {
+                    basisYRow = i;
+                }
+
+                //Console.Write(CoeffTable[i, basisXColumn]);//basis column
+            }
+            listBoxBasis.Items[basisYRow] = basisXColumn + 1;
+            Console.WriteLine(Environment.NewLine+basisYRow + "= basis coef=" + CoeffTable[basisYRow, basisXColumn]);
+            if (MaxColumnKoef <= 0)
+            {
+                Console.WriteLine("Answer:");
+                for (int i = 0; i <= x - 1; i++)
+                {
+                    Console.Write("x" + listBoxBasis.Items[i] + ":" + CoeffTable[i, y - 1] + " ");
+                }
+                return;
+            }
+            basis = CoeffTable[basisYRow, basisXColumn];//basis point
+
+            for (int i = 0; i < y; i++)
+            {
+                CoeffTable[basisYRow, i] = CoeffTable[basisYRow, i] / basis;
+            }
+            for (int i = 0; i < x; i++)//walk to tables exlude basis row and cell
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    if (i == basisXColumn + 1 || j == basisYRow - 1)//
+                        continue;
+                    CoeffTable[i, j] = CoeffTable[i, j] - (CoeffTable[basisYRow, j] * CoeffTable[i, basisXColumn]);
+                }
+                Console.WriteLine();
+            }
+            for (int i = 0; i < x ; i++)
+            {
+                if (i!=basisYRow)
+                    CoeffTable[i, basisXColumn] = 0;
+                else
+                    CoeffTable[i, basisXColumn] = 1;
+
+            }
+
+            for (int i = 0; i < x; i++)//walk to tables exlude basis row and cell
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    //if (i == basisXColumn + 1 || j == basisYRow - 1)//
+                    //    continue;
+                    Console.Write(" {0:0.0}", CoeffTable[i, j]);
+                    //CoeffTable[i, j] = CoeffTable[i, j] - (CoeffTable[basisXColumn - 1, j] * CoeffTable[i, basisYRow - 1]);
+                }
+                Console.WriteLine();
+            }
         }
     }
 }
